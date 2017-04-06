@@ -6,12 +6,22 @@ Mainpage = mongoose.model('Projects');
 
 
 exports.list_all_projects = function(req, res) {
-  Mainpage.find({}, '-_id', function(err, project) {
-    if(err) {
-      res.send(err);
-    }
-    res.json(project);
-  });
+  var token = req.body.token;
+  if(token && token === process.env.TOKEN){
+    Mainpage.find({}, function(err, project) {
+      if(err) {
+        res.send(err);
+      }
+      res.json(project);
+    });
+  }else{
+    Mainpage.find({}, '-_id', function(err, project) {
+      if(err) {
+        res.send(err);
+      }
+      res.json(project);
+    });
+  }
 };
 
 exports.add_project = function(req, res) {
