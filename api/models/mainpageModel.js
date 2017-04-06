@@ -25,7 +25,7 @@ var ProjectSchema = new Schema({
     required: true
   },
   longDescription: String,
-  simpleID: Schema.Types.ObjectId,
+  longDescID: Number,
   links: {
     links: [
       {
