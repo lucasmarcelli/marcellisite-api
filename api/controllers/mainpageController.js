@@ -6,7 +6,7 @@ Mainpage = mongoose.model('Projects');
 
 
 exports.list_all_projects = function(req, res) {
-  var token = req.body.token;
+  var token = req.headers.token;
   if(token && token === process.env.TOKEN){
     Mainpage.find({}, function(err, project) {
       if(err) {
