@@ -6,7 +6,6 @@ var express = require('express'),
   bodyParser = require('body-parser'),
   cors = require('cors');
 
-mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/marcellidb');
 
 
