@@ -20,6 +20,10 @@ mainpageRoutes(app);
 var baseRoutes = require('./api/routes/baseRoutes');
 baseRoutes(app);
 
+app.get('*', function(req, res){
+  res.send('That is not a valid resource', 404);
+});
+
 
 app.listen(port);
 

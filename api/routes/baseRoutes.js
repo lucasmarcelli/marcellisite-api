@@ -1,7 +1,7 @@
 'use strict';
 module.exports = function(app) {
-  var mainpage = require('../controllers/baseController');
+  var base = require('../controllers/baseController');
 
   app.route('/')
-    .get(mainpage.base);
+    .get(base.base);
   };
