@@ -35,46 +35,55 @@ exports.add_project = function(req, res) {
       res.json(project);
     })
   }else{
-    res.status(401);
-    res.json({"message":"Invalid add token"});
+    res.status(403).send("Invalid token.");
   }
 };
+
+exports.test = function(req, res){
+  res.send(req.params.projectID, 200);
+}
 
 exports.delete_project = function(req, res) {
   var token = req.headers.token;
   if(token === process.env.TOKEN) {
-     Mainpage.remove({_id: req.body.id}, function(err, project){
+     Mainpage.remove({_id: req.params.projectID}, function(err, project){
        if(err){
          res.send(err);
        }
-       res.json({"message":"Successfully deleted project"});
+        res.status(200).send("Successfully deleted " + req.params.projectID)
      })
   }else{
-    res.status(401);
-    res.json({"message":"Invalid add token"});
+    res.status(403).send("Invalid token.");
   }
 };
 
 exports.get_single_project = function(req, res){
-  Mainpage.findById(req.query.id, function(err, project){
+  Mainpage.findById(req.params.projectID, function(err, project){
     if(err){
       res.send(err);
     }
-    res.json(project);
+    if(!project){
+      res.status(404).send("Something went wrong here.");
+    }else{
+      res.json(project);
+    }
   })
 }
 
 exports.update_project = function(req, res) {
   var token = req.headers.token;
   if(token === process.env.TOKEN) {
-     Mainpage.findOneAndUpdate({_id: req.query.id}, req.body, {new: true}, function(err, project){
+     Mainpage.findOneAndUpdate({_id: req.params.projectID}, req.body, {new: true}, function(err, project){
        if(err){
          res.send(err);
        }
-       res.json(project);
+       if(!project){
+         res.status(404).send("Something went wrong here.");
+       }else{
+         res.json(project);
+       }
      })
   }else{
-    res.status(401);
-    res.json({"message":"Invalid add token"});
+    res.status(403).send("Invalid token.");
   }
 }

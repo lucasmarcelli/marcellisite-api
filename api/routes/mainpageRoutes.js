@@ -5,10 +5,12 @@ module.exports = function(app) {
   // mainpage Routes
   app.route('/main/projects')
     .get(mainpage.list_all_projects)
-    .post(mainpage.add_project)
-    .delete(mainpage.delete_project);
+    .post(mainpage.add_project);
 
-  app.route('/main/project')
+
+
+  app.route('/main/projects/:projectID')
       .post(mainpage.update_project)
-      .get(mainpage.get_single_project);
+      .get(mainpage.get_single_project)
+      .delete(mainpage.delete_project);;
 };
