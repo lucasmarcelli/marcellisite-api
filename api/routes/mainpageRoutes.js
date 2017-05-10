@@ -2,7 +2,6 @@
 module.exports = function(app) {
   var mainpage = require('../controllers/mainpageController');
 
-
   // mainpage Routes
   app.route('/main/projects')
     .get(mainpage.list_all_projects)

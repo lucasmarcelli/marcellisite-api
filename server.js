@@ -14,8 +14,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-var routes = require('./api/routes/mainpageRoutes');
-routes(app);
+var mainpageRoutes = require('./api/routes/mainpageRoutes');
+mainpageRoutes(app);
+
+var baseRoutes = require('./api/routes/baseRoutes');
+baseRoutes(app);
 
 
 app.listen(port);
