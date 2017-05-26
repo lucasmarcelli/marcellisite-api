@@ -3,6 +3,10 @@
 var mongoose = require('mongoose'),
 Post = mongoose.model('Post');
 
+exports.welcome = function(req, res){
+  res.send("This is the blog api");
+};
+
 exports.list_all_posts = function(req, res){
   var token = req.headers.token;
   if(token && token === process.env.TOKEN){
@@ -13,7 +17,7 @@ exports.list_all_posts = function(req, res){
       res.json(project);
     });
   }else{
-    Post.find({}, '-_id', function(err, project) {
+    Post.find({visible: true}, ['-_id', '-content', '-visible', '-created'], function(err, project) {
       if(err) {
         res.send(err);
       }
@@ -52,7 +56,8 @@ exports.delete_post = function(req, res){
 }
 
 exports.get_single_post = function(req, res){
-  Post.findById(req.params.postID, function(err, post){
+  var slug = req.params.slug;
+  Post.findOne({slug: slug}, ['-_id', '-created'], function(err, post){
     if(err){
       res.send(err);
     }

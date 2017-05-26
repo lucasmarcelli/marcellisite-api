@@ -8,9 +8,11 @@ var PostSchema = new Schema({
     type: String,
     required: true
   },
+  subtitle: String,
   slug: {
     type: String,
     required: true,
+    unique: true
   },
   created: {
     type: Date,
@@ -21,8 +23,13 @@ var PostSchema = new Schema({
     required: true
   },
   pubDate: {
-    type: String,
+    type: Date,
     required: true
+  },
+  visible: {
+    type: Boolean,
+    required: true,
+    default: false
   }
 });
 

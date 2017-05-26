@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(app) {
-  var mainpage = require('../controllers/mainpageController');
+  var mainpage = require('../controllers/mainpage');
 
   // mainpage Routes
   app.route('/main/projects')

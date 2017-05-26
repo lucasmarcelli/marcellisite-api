@@ -2,8 +2,8 @@ var express = require('express'),
   app = express(),
   port = process.env.PORT || 8000,
   mongoose = require('mongoose'),
-  Main = require('./api/models/mainpageModel'),
-  Post = require('./api/models/postModel'),
+  Main = require('./site/models/mainpage'),
+  Post = require('./site/models/post'),
   bodyParser = require('body-parser'),
   cors = require('cors');
 
@@ -15,13 +15,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-var mainpageRoutes = require('./api/routes/mainpageRoutes');
+var mainpageRoutes = require('./site/routes/mainpage');
 mainpageRoutes(app);
 
-var blogRoutes = require('./api/routes/blogRoutes');
+var blogRoutes = require('./site/routes/blog');
 blogRoutes(app);
 
-var baseRoutes = require('./api/routes/baseRoutes');
+var baseRoutes = require('./site/routes/base');
 baseRoutes(app);
 
 app.get('*', function(req, res){
