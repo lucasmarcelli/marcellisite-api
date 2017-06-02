@@ -8,14 +8,14 @@ Mainpage = mongoose.model('Projects');
 exports.list_all_projects = function(req, res) {
   var token = req.headers.token;
   if(token && token === process.env.TOKEN){
-    Mainpage.find({}, null, {sort: '-order'}, function(err, project) {
+    Mainpage.find({}, null, {sort: 'order'}, function(err, project) {
       if(err) {
         res.send(err);
       }
       res.json(project);
     });
   }else{
-    Mainpage.find({}, '-_id', {sort: '-order'} ,function(err, project) {
+    Mainpage.find({}, '-_id', {sort: 'order'} ,function(err, project) {
       if(err) {
         res.send(err);
       }
