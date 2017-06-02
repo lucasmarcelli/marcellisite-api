@@ -45,4 +45,12 @@ var ProjectSchema = new Schema({
 
 });
 
+ProjectSchema.add({
+  order: {
+    type: Number,
+    required: true,
+    default: 10
+  }
+})
+
 module.exports = mongoose.model('Projects', ProjectSchema);
