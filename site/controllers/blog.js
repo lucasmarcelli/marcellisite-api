@@ -17,7 +17,7 @@ exports.list_all_posts = function(req, res){
       res.json(project);
     });
   }else{
-    Post.find({visible: true}, ['-_id', '-content', '-visible', '-created'], function(err, project) {
+    Post.find({visible: true}, ['-_id', '-content', '-visible', '-created', '-__v'], function(err, project) {
       if(err) {
         res.send(err);
       }
@@ -57,16 +57,30 @@ exports.delete_post = function(req, res){
 
 exports.get_single_post = function(req, res){
   var slug = req.params.slug;
-  Post.findOne({slug: slug}, ['-_id', '-created'], function(err, post){
-    if(err){
-      res.send(err);
-    }
-    if(!post){
-      res.status(404).send("Something went wrong here.");
-    }else{
-      res.json(post);
-    }
-  })
+  var token = req.headers.token;
+  if(token === process.env.TOKEN) {
+    Post.findOne({slug: slug}, function(err, post){
+      if(err){
+        res.send(err);
+      }
+      if(!post){
+        res.status(404).send("Something went wrong here.");
+      }else{
+        res.json(post);
+      }
+    })
+  }else{
+    Post.findOne({slug: slug, visible: true}, ['-_id', '-created', '-visible', '-__v'], function(err, post){
+      if(err){
+        res.send(err);
+      }
+      if(!post){
+        res.status(404).send("Something went wrong here.");
+      }else{
+        res.json(post);
+      }
+    })
+  }
 }
 
 exports.update_post = function(req, res){

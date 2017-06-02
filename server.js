@@ -8,6 +8,7 @@ var express = require('express'),
   cors = require('cors');
 
 mongoose.connect('mongodb://localhost/marcellidb');
+mongoose.Promise = global.Promise;
 
 
 app.use(cors());
