@@ -10,14 +10,14 @@ exports.welcome = function(req, res){
 exports.list_all_posts = function(req, res){
   var token = req.headers.token;
   if(token && token === process.env.TOKEN){
-    Post.find({}, function(err, project) {
+    Post.find({}, null, {sort: '-pubDate'}, function(err, project) {
       if(err) {
         res.send(err);
       }
       res.json(project);
     });
   }else{
-    Post.find({visible: true}, ['-_id', '-content', '-visible', '-created', '-__v'], function(err, project) {
+    Post.find({visible: true}, ['-_id', '-content', '-visible', '-created', '-__v'], {sort: '-pubDate'}, function(err, project) {
       if(err) {
         res.send(err);
       }
