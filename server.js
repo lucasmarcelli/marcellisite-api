@@ -4,6 +4,7 @@ var express = require('express'),
   mongoose = require('mongoose'),
   Main = require('./site/models/mainpage'),
   Post = require('./site/models/post'),
+  User = require('./site/models/user'),
   bodyParser = require('body-parser'),
   cors = require('cors');
 
@@ -24,6 +25,9 @@ blogRoutes(app);
 
 var baseRoutes = require('./site/routes/base');
 baseRoutes(app);
+
+var authRoutes = require('./site/routes/auth');
+authRoutes(app);
 
 app.get('*', function(req, res){
   res.status(404).send('That is not a valid resource');
