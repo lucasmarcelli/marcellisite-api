@@ -12,7 +12,7 @@ exports.welcome = function(req, res){
 
 exports.verify_cookie = function(req, res){
   var id_token = req.headers.token;
-  var google_id = req.headers.googleId;
+  var google_id = req.headers.googleid;
   googleAuthUtils.verify_token(id_token, function(payload, userid){
     if(payload.sub === google_id){
       res.status(200).send("Verfied token.");
