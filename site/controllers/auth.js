@@ -51,7 +51,7 @@ exports.get_user = function(req, res){
         res.status(404).send("Something went wrong here.");
       }else{
         user = user.toObject();
-        if(admins.includes(user.email)){
+        if(admins.indexOf(user.email) !== -1){
           user.admin = true;
         }
         res.json(user);
