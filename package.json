@@ -18,7 +18,7 @@
     "express": "^4.15.2",
     "google-auth-library": "^0.10.0",
     "marked": "^0.3.6",
-    "mongoose": "^4.9.2",
+    "mongoose": "^4.11.1",
     "mongoose-auto-increment": "^5.0.1"
   }
 }

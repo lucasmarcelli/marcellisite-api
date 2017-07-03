@@ -11,7 +11,7 @@ exports.welcome = function(req, res){
 }
 
 exports.verify_cookie = function(req, res){
-  var id_token = req.headers.id_token;
+  var id_token = req.headers.token;
   var google_id = req.headers.google_id;
   googleAuthUtils.verify_token(id_token, function(payload, userid){
     if(payload.sub === google_id){
@@ -27,7 +27,7 @@ exports.verify_cookie = function(req, res){
 }
 
 exports.authorize_admin = function(req, res){
-  var id_token = req.headers.id_token;
+  var id_token = req.headers.token;
   googleAuthUtils.verify_token(id_token, function(payload, userid){
     if(admins.includes(payload.email)){
       res.status(200).send("Yo adminerino!");
@@ -41,7 +41,7 @@ exports.authorize_admin = function(req, res){
 }
 
 exports.get_user = function(req, res){
-  var id_token = req.headers.id_token;
+  var id_token = req.headers.token;
   googleAuthUtils.verify_token(id_token, function(payload, userid){
     User.findOne({google_id: userid}, function(err, user){
       if(err){
@@ -64,7 +64,7 @@ exports.get_user = function(req, res){
 }
 
 exports.create_user = function(req, res){
-  var id_token = req.headers.id_token;
+  var id_token = req.headers.token;
   googleAuthUtils.verify_token(id_token, function(payload, userid){
     var user_object = {};
     user_object.first_name = payload.given_name;
