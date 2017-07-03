@@ -10,6 +10,22 @@ exports.welcome = function(req, res){
   res.send("Auth APIs for marcelli sites.");
 }
 
+exports.verify_cookie = function(req, res){
+  var id_token = req.headers.id_token;
+  var google_id = req.headers.google_id;
+  googleAuthUtils.verify_token(id_token, function(payload, userid){
+    if(payload.sub === google_id){
+      res.status(200).send("Verfied token.");
+    }else{
+      res.status(403).send("Failed to verify token.");
+    }
+  },
+    function(e){
+      res.status(400).send("Invalid token!");
+  })
+
+}
+
 exports.authorize_admin = function(req, res){
   var id_token = req.headers.id_token;
   googleAuthUtils.verify_token(id_token, function(payload, userid){

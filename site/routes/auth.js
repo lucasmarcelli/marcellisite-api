@@ -6,6 +6,9 @@ module.exports = function(app){
   app.route('/auth/user')
     .post(auth.get_user);
 
+  app.route('/auth/verifycookie')
+      .post(auth.verify_cookie);
+
   app.route('/auth/user/admin')
     .get(auth.authorize_admin);
 
