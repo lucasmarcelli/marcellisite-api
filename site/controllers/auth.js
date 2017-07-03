@@ -29,7 +29,7 @@ exports.verify_cookie = function(req, res){
 exports.authorize_admin = function(req, res){
   var id_token = req.headers.token;
   googleAuthUtils.verify_token(id_token, function(payload, userid){
-    if(admins.includes(payload.email)){
+    if(admins.indexOf(payload.email) !== -1){
       res.status(200).send("Yo adminerino!");
     }else{
       res.status(403).send("You are not admin.")
